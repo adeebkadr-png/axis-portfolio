@@ -44,7 +44,7 @@ function applyProjects(){
  const list=content.projects||SCHEMA.projects||[],grid=$('.project-grid');
  if(grid&&content.projects){
   grid.innerHTML=list.map((p,i)=>'<article class="project"><button class="project-visual '+(p.style==='community'?'community':'store')+(safe(p.cover)?' has-cover':'')+'" data-project="'+esc(p.id)+'" aria-label="عرض تفاصيل '+esc(p.title)+'"><div class="visual-top"><span>'+esc(p.eco)+'</span><span>'+String(i+1).padStart(2,'0')+'</span></div>'+bigTitle(p)+'<span class="visual-bottom">'+esc(p.bottom)+' <span>عرض المشروع +</span></span></button><div class="project-info"><h3>'+esc(p.title)+'</h3><span>'+esc(p.meta)+'</span></div><p>'+esc(p.summary)+'</p></article>').join('');
-  list.forEach((p,i)=>{const cover=safe(p.cover);if(cover)$$('.project-visual',grid)[i].style.backgroundImage='linear-gradient(#0b204580,#0b2045d0),url("'+cover+'")'});
+  list.forEach((p,i)=>{const cover=safe(p.cover);if(cover)$$('.project-visual',grid)[i].style.setProperty('--cover','url("'+cover+'")')});
  }
  if(list.length)window.AXIS_PROJECTS=Object.fromEntries(list.map(p=>[p.id,{type:p.type,title:p.title,desc:p.desc,features:p.features||[],url:/^https?:\/\//i.test(p.url||'')?p.url:'',gallery:(p.gallery||[]).map(safe).filter(Boolean)}]));
 }
@@ -61,6 +61,8 @@ function init(){
  [applyTexts,applyProjects,applyImages].forEach(fn=>{try{fn()}catch(e){console.error(e)}});
  const done=()=>document.documentElement.classList.remove('axis-loading');
  const s=document.createElement('script');s.src=APP_SRC;s.onload=s.onerror=done;document.body.append(s);
+ // A gallery image opens at full size in a new tab.
+ const gallery=$('#modal-gallery');if(gallery)gallery.addEventListener('click',e=>{if(e.target.tagName==='IMG')window.open(e.target.src,'_blank','noopener')});
 }
 init();
 })();

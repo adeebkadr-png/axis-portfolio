@@ -17,3 +17,23 @@
 /* Hero logo v2: transparent logo sits directly on the arch (no image box, no halo) */
 .hero-art .identity-window{inset:21% 0 23%;background:url('axis-logo.png') 50% 50% / contain no-repeat;mix-blend-mode:normal;-webkit-mask-image:none;mask-image:none}
 @media(max-width:650px){.hero-art .identity-window{inset:9% 0 30%;background-size:contain;background-position:50% 50%;-webkit-mask-image:none;mask-image:none}}
+
+/* ── محتوى منشور من لوحة الإدارة: صورة «عن الشركة»، غلاف البطاقة، معرض المشروع ── */
+html.axis-loading main{visibility:hidden}
+.about-photo{display:block;width:100%;max-height:260px;object-fit:cover;border-radius:18px;margin-top:22px}
+#modal-link[hidden]{display:none}
+
+/* المعرض: كل صورة كاملة بنسبتها الأصلية — لا قصّ ولا تكبير. */
+#modal-gallery{display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,230px),1fr));gap:10px;margin:0 0 26px;align-items:start}
+#modal-gallery:empty{display:none}
+#modal-gallery img{display:block;width:100%;height:auto;max-height:78dvh;object-fit:contain;border-radius:12px;background:#e3eefb;cursor:zoom-in}
+
+/* الغلاف: الصورة كاملة في وسط البطاقة فوق نسخة مموّهة منها تملأ الفراغ — أي نسبة أبعاد تظهر بلا قصّ. */
+.project-visual.has-cover{position:relative;background:#0b2045;color:#fff;isolation:isolate}
+.project-visual.has-cover::before{content:"";position:absolute;inset:-24px;z-index:-2;background:var(--cover) center/cover no-repeat;filter:blur(22px) brightness(.8)}
+.project-visual.has-cover::after{content:"";position:absolute;inset:0;z-index:-1;background:var(--cover) center/contain no-repeat}
+.project-visual.has-cover .store-title,.project-visual.has-cover .community-title{visibility:hidden}
+.project-visual.has-cover .visual-top{color:#dbe9fb;text-shadow:0 1px 8px #0b2045}
+/* سطر البطاقة السفلي يغطّي الصورة — يبقى منه زرّ «عرض المشروع» وحده كحبّة في الزاوية. */
+.project-visual.has-cover .visual-bottom{border:0;padding:0;font-size:0;justify-content:flex-end}
+.project-visual.has-cover .visual-bottom span{font-size:13px;color:#fff;background:#0b2045d9;padding:7px 14px;border-radius:99px}

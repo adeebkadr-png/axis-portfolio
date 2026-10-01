@@ -9,7 +9,7 @@ window.AXIS_STORE_ORIGIN=origin;
 var started=false;
 function next(){
  if(started)return;started=true;
- var s=document.createElement('script');s.src='content.js?v=1';document.body.appendChild(s);
+ var s=document.createElement('script');s.src='content.js?v=2';document.body.appendChild(s);
 }
 if(!origin){next();return}
 var s=document.createElement('script');
